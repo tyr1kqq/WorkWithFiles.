@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.IO;
 
 namespace Task1
@@ -7,39 +8,67 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            DeleteFile();
+            Delete();
         }
 
-        static public  void DeleteFile()
+        static public  void Delete()
         {
-            string FileDir = @"/Users/tyr1k_qq/Desktop";
-            DirectoryInfo DirInf = new DirectoryInfo(FileDir );
+            
+
+            string FileDir = @"/Users/tyr1k_qq/Desktop/test";
+
             try
             {
-                if (DirInf.Exists)
+                if (Directory.Exists(FileDir))
                 {
-                    DateTime LastTime = DirInf.LastAccessTime;
-                    
-                    if (( DateTime.Now - LastTime) > TimeSpan.FromMinutes(30)) 
+                    DirectoryInfo DirInfo = new DirectoryInfo(FileDir);
+                    FileInfo fileInfo = new FileInfo(FileDir);
+                    DateTime LastDate = DirInfo.LastAccessTime;
+                    Console.WriteLine("Directories: ");
+
+                    Console.WriteLine();
+
+                    foreach (var Direct in DirInfo.GetDirectories())
                     {
-                        DirInf.Delete(true);
-                        Console.WriteLine("Your file is Delete");
+                        Console.WriteLine(Direct.Name);
+                        if ((DateTime.Now - LastDate) > TimeSpan.FromMinutes(30))
+                        {
+                            Console.WriteLine("Directory {0} has delete", Direct.Name);
+                            Direct.Delete(true);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time < 30 minuts");
+                        }
                     }
-                    else
+                    Console.WriteLine();
+                    Console.WriteLine();
+
+                    Console.WriteLine("Papki: ");
+
+                    Console.WriteLine();
+
+                    foreach (var File in DirInfo.GetFiles())
                     {
-                        Console.WriteLine("File used za poslednie 30 minut");
+                        Console.WriteLine(File.Name);
+                        if ((DateTime.Now - LastDate) > TimeSpan.FromMinutes(30))
+                        {
+                            Console.WriteLine("File {0} has Delete", File.Name);
+                            File.Delete();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time < 30 minuts");
+                        }
                     }
-                    
-                }
-                else
-                {
-                    Console.WriteLine("Wrong adress");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            
+
         }
     }
 }
