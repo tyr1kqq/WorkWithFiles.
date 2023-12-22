@@ -13,9 +13,10 @@ namespace Task1
             Console.WriteLine("Размер папки до удаления - {0}" , PathSize);
             Console.WriteLine();
             Delete(FileDir);
-            PathSize = CalculatePathMemory(FileDir);
+            long PathSizeDelete = CalculatePathMemory(FileDir);
             Console.WriteLine();
             Console.WriteLine("Размер после удаления - {0}", PathSize);
+            Console.WriteLine("Освобождено места на диске - {0} byte" , (PathSize-PathSizeDelete));
         }
         static long CalculatePathMemory(string DirectPath)
         {
