@@ -22,7 +22,7 @@ namespace Task1
                 if (Directory.Exists(FileDir))
                 {
                     DirectoryInfo DirInfo = new DirectoryInfo(FileDir);
-                    FileInfo fileInfo = new FileInfo(FileDir);
+                    
                     DateTime LastDate = DirInfo.LastAccessTime;
                     Console.WriteLine("Directories: ");
 
