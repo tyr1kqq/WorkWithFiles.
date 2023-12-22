@@ -21,6 +21,8 @@ namespace FinalTask
             Directory.CreateDirectory(StudentPatch);
 
             List<Student> students = GetStudentFromBase(BaseStudent);
+
+            SortStudentsAndWriteToFile(students);
         }
 
         static List<Student> GetStudentFromBase(string BaseStudent)
